@@ -244,17 +244,6 @@ All APIs used are **FREE** (no API keys required!):
 - **Weather**: Open-Meteo API (completely free, unlimited)
 - **Market Data**: Aggregated from multiple sources
 
-## 💰 Revenue Projections (NEW Premium Pricing!)
-
-**Conservative** (100 calls/day): ~$350/year
-**Moderate** (1,000 calls/day): ~$8,000/year
-**Aggressive** (10,000 calls/day): ~$80,000/year
-**Scale** (100,000+ calls/day): Path to $20M+ annual revenue
-
-💡 **2x revenue with premium positioning** - Still 50% below competitors!
-
-See [PRICING_STRATEGY.md](./PRICING_STRATEGY.md) and [MONEY_STRATEGY.md](./MONEY_STRATEGY.md) for detailed analysis.
-
 ## 🧪 Testing
 
 ```bash
@@ -316,10 +305,6 @@ This project was built using a coordinated multi-agent swarm approach with 8 spe
 - ✅ Testing Engineer
 - 📚 Documentation Writer
 
-See [docs/agent-prompt.md](./docs/agent-prompt.md) for the complete swarm architecture.
-
 ---
 
 **Made with 🔥 for the x402 ecosystem**
-
-**Deploy. Earn. Scale.** 🚀

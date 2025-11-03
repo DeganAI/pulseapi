@@ -166,20 +166,6 @@ Railway auto-scales based on load. To optimize:
 3. Add rate limiting if needed
 4. Consider adding Redis for caching expensive operations
 
-## Cost Estimation
-
-Railway pricing (as of 2025):
-- **Hobby Plan:** $5/month for starter projects
-- **Pro Plan:** $20/month + usage
-- **Team Plan:** Custom pricing
-
-**Expected costs for PulseAPI:**
-- Low traffic (<1000 requests/day): ~$5-10/month
-- Medium traffic (10k requests/day): ~$20-50/month
-- High traffic (100k+ requests/day): ~$100-200/month
-
-**Revenue potential FAR exceeds costs!**
-
 ## Next Steps
 
 1. **Monitor usage** via Railway dashboard
@@ -197,4 +183,4 @@ Need help?
 
 ---
 
-**You're live! Time to make money! 🚀💰**
+**You're live! 🚀**
