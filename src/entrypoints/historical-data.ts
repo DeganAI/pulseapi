@@ -56,7 +56,7 @@ export function registerHistoricalDataEntrypoint(
       "📊 TIME SERIES DATA - Get historical crypto prices, volume, and market cap data for backtesting, analysis, and agent decision-making. Perfect for trading algorithms that need historical context. Includes statistics, volatility analysis, and AI-generated insights about trends and patterns.",
     input: HistoricalDataInputSchema,
     output: HistoricalDataOutputSchema,
-    price: "40000", // 0.04 USDC - premium time-series + AI insights
+    price: "$0.04", // 0.04 USDC - premium time-series + AI insights
     async handler({ input }) {
       const result = await getHistoricalPrices(input);
 

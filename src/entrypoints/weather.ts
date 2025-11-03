@@ -58,7 +58,7 @@ export function registerWeatherEntrypoint(
       "Get real-time weather data and forecasts for any location worldwide. Includes current conditions and optional 5-day forecast. Perfect for location-based agents and planning algorithms.",
     input: WeatherInputSchema,
     output: WeatherOutputSchema,
-    price: "10000", // 0.01 USDC - real-time weather + forecast
+    price: "$0.01", // 0.01 USDC - real-time weather + forecast
     async handler({ input }) {
       const result = await getWeatherData(input);
 

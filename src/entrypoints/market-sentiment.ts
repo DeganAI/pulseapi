@@ -46,7 +46,7 @@ export function registerMarketSentimentEntrypoint(
       "Advanced market sentiment analysis combining price action, social media, and news sentiment. Perfect for trading algorithms and investment decision support. Provides actionable signals with confidence scores.",
     input: MarketSentimentInputSchema,
     output: MarketSentimentOutputSchema,
-    price: "60000", // 0.06 USDC - premium AI market intelligence
+    price: "$0.06", // 0.06 USDC - premium AI market intelligence
     async handler({ input }) {
       const result = await getMarketSentiment(input);
 

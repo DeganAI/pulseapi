@@ -78,7 +78,7 @@ export function registerAnalyticsEntrypoint(
       "🎯 AGENT OBSERVABILITY - Track your API usage, costs, latency, and errors. Debug your agent's behavior, optimize spending, and identify issues BEFORE they become problems. This is the #1 missing feature in AI agent development. Monitor cost per query, success rates, response times, error patterns, and get actionable recommendations.",
     input: AnalyticsInputSchema,
     output: AnalyticsOutputSchema,
-    price: "10000", // 0.01 USDC - premium observability
+    price: "$0.01", // 0.01 USDC - premium observability
     async handler({ input }) {
       const result = await getUsageAnalytics(input);
 

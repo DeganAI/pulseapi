@@ -47,7 +47,7 @@ export function registerCryptoPriceEntrypoint(
       "Get real-time cryptocurrency prices for multiple assets. Supports 1000+ coins with instant updates. Perfect for trading bots, price alerts, and market monitoring.",
     input: CryptoPriceInputSchema,
     output: CryptoPriceOutputSchema,
-    price: "20000", // 0.02 USDC - premium real-time data
+    price: "$0.02", // 0.02 USDC - premium real-time data
     async handler({ input }) {
       const result = await getCryptoPrices(input);
 

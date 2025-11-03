@@ -21,7 +21,7 @@ const { app, addEntrypoint, config } = createAgentApp(
         payTo: "0x01D11F7e1a46AbFC6092d7be484895D2d505095c",
         network: "base",
         asset: "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
-        defaultPrice: "20000", // 0.02 USDC - premium positioning
+        defaultPrice: "$0.02", // 0.02 USDC - premium positioning
       },
     },
     useConfigPayments: true,

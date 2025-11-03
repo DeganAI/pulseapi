@@ -68,7 +68,7 @@ export function registerMultiDataEntrypoint(
       "🔥 THE POWER COMBO 🔥 - Get crypto prices, news, and weather in ONE request! Perfect for AI agents that need comprehensive context. Massive time and money saver compared to multiple API calls. This is the KILLER feature!",
     input: MultiDataInputSchema,
     output: MultiDataOutputSchema,
-    price: "50000", // 0.05 USDC - premium combo (saves 29% vs individual)
+    price: "$0.05", // 0.05 USDC - premium combo (saves 29% vs individual)
     async handler({ input }) {
       const results: any = {
         timestamp: new Date().toISOString(),

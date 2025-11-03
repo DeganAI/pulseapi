@@ -47,7 +47,7 @@ export function registerNewsEntrypoint(
       "Get latest cryptocurrency news from top sources (CoinDesk, CoinTelegraph, Decrypt, etc). Includes sentiment analysis and filtering. Perfect for market intelligence and trading signals.",
     input: NewsInputSchema,
     output: NewsOutputSchema,
-    price: "30000", // 0.03 USDC - AI sentiment analysis included
+    price: "$0.03", // 0.03 USDC - AI sentiment analysis included
     async handler({ input }) {
       const result = await getCryptoNews(input);
 
