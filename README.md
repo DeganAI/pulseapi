@@ -293,18 +293,8 @@ MIT License - see [LICENSE](./LICENSE) for details.
 - **Discord**: x402 Discord server
 - **Issues**: [GitHub Issues](https://github.com/YOUR_USERNAME/pulseapi/issues)
 
-## 🏆 Built by the PulseAPI Swarm
-
-This project was built using a coordinated multi-agent swarm approach with 8 specialized AI agents:
-- 🎯 Project Orchestrator
-- 🏗️ Backend Architect
-- 💎 TypeScript Specialist
-- 🔌 Data Integration Engineer
-- 🚀 DevOps Engineer
-- 🔒 Security Specialist
-- ✅ Testing Engineer
-- 📚 Documentation Writer
-
 ---
+
+**Built by [DegenLlama.net](https://degenllama.net)**
 
 **Made with 🔥 for the x402 ecosystem**
