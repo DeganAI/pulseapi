@@ -2,7 +2,7 @@
   "mcpServers": {
     "pulseapi": {
       "command": "npx",
-      "args": ["-y", "@degenai/mcp-server-pulseapi"],
+      "args": ["-y", "@hashmonkey/mcp-server-pulseapi"],
       "env": {
         "X402_PRIVATE_KEY": "0xYOUR_PRIVATE_KEY_HERE_KEEP_IT_SECRET"
       }

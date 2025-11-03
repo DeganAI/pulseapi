@@ -1,5 +1,5 @@
 {
-  "name": "@degenai/mcp-server-pulseapi",
+  "name": "@hashmonkey/mcp-server-pulseapi",
   "version": "1.0.0",
   "description": "MCP server for PulseAPI - Real-time crypto, news, weather, and market data with x402 micropayments",
   "main": "dist/index.js",

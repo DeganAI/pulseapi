@@ -31,13 +31,13 @@ This MCP server exposes 7 powerful data tools with automatic x402 micropayments:
 ### Install via npm
 
 ```bash
-npm install -g @degenai/mcp-server-pulseapi
+npm install -g @hashmonkey/mcp-server-pulseapi
 ```
 
 ### Or use npx (no installation)
 
 ```bash
-npx @degenai/mcp-server-pulseapi
+npx @hashmonkey/mcp-server-pulseapi
 ```
 
 ## Configuration
