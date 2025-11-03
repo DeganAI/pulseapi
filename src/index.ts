@@ -49,10 +49,7 @@ registerMarketSentimentEntrypoint(addEntrypoint);
 registerAnalyticsEntrypoint(addEntrypoint);
 registerHistoricalDataEntrypoint(addEntrypoint);
 
-// Mount agent app on wrapper
-wrapperApp.route("/", app);
-
-// Override agent.json endpoint with metadata
+// Override agent.json endpoint with metadata BEFORE mounting agent app
 wrapperApp.get("/.well-known/agent.json", async (c) => {
   const manifest = config.toManifest();
 
@@ -64,6 +61,9 @@ wrapperApp.get("/.well-known/agent.json", async (c) => {
     framework: "x402 / agent-kit",
   });
 });
+
+// Mount agent app on wrapper (this will add all other routes)
+wrapperApp.route("/", app);
 
 // Export wrapper for Railway/Bun
 export default {
