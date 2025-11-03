@@ -45,35 +45,24 @@ registerMarketSentimentEntrypoint(addEntrypoint);
 registerAnalyticsEntrypoint(addEntrypoint);
 registerHistoricalDataEntrypoint(addEntrypoint);
 
-// Override agent.json to add ecosystem metadata
-app.get("/.well-known/agent.json", async (c) => {
-  // Get the config manifest
-  const manifest = config.toManifest();
+// Middleware to add Daydreams ecosystem metadata to agent.json
+app.use("/.well-known/agent.json", async (c, next) => {
+  await next();
 
-  // Add Daydreams ecosystem metadata
-  const enhancedManifest = {
-    ...manifest,
-    author: "DegenLlama.net",
-    organization: "Daydreams",
-    provider: "Daydreams",
-    framework: "x402 / agent-kit",
-  };
+  if (c.res.headers.get("content-type")?.includes("application/json")) {
+    const body = await c.res.json();
 
-  // Remove null fields if they were in the original
-  Object.keys(enhancedManifest).forEach((key) => {
-    if (enhancedManifest[key as keyof typeof enhancedManifest] === null) {
-      delete enhancedManifest[key as keyof typeof enhancedManifest];
-    }
-  });
+    // Add Daydreams ecosystem metadata
+    const enhancedManifest = {
+      ...body,
+      author: "DegenLlama.net",
+      organization: "Daydreams",
+      provider: "Daydreams",
+      framework: "x402 / agent-kit",
+    };
 
-  // Re-add our metadata
-  return c.json({
-    ...enhancedManifest,
-    author: "DegenLlama.net",
-    organization: "Daydreams",
-    provider: "Daydreams",
-    framework: "x402 / agent-kit",
-  });
+    return c.json(enhancedManifest);
+  }
 });
 
 // Export for Railway/Bun
