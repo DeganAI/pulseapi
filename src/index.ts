@@ -46,16 +46,29 @@ registerAnalyticsEntrypoint(addEntrypoint);
 registerHistoricalDataEntrypoint(addEntrypoint);
 
 // Override agent.json to add ecosystem metadata
-const originalAgentHandler = app.routes.find(
-  (r: any) => r.path === "/.well-known/agent.json"
-);
-
 app.get("/.well-known/agent.json", async (c) => {
   // Get the config manifest
   const manifest = config.toManifest();
 
-  return c.json({
+  // Add Daydreams ecosystem metadata
+  const enhancedManifest = {
     ...manifest,
+    author: "DegenLlama.net",
+    organization: "Daydreams",
+    provider: "Daydreams",
+    framework: "x402 / agent-kit",
+  };
+
+  // Remove null fields if they were in the original
+  Object.keys(enhancedManifest).forEach((key) => {
+    if (enhancedManifest[key as keyof typeof enhancedManifest] === null) {
+      delete enhancedManifest[key as keyof typeof enhancedManifest];
+    }
+  });
+
+  // Re-add our metadata
+  return c.json({
+    ...enhancedManifest,
     author: "DegenLlama.net",
     organization: "Daydreams",
     provider: "Daydreams",
