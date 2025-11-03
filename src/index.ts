@@ -1,5 +1,6 @@
 import { createAgentApp } from "@lucid-dreams/agent-kit";
 import { Hono } from "hono";
+import { zodToJsonSchema } from "zod-to-json-schema";
 import { registerCryptoPriceEntrypoint } from "./entrypoints/crypto-price";
 import { registerNewsEntrypoint } from "./entrypoints/news";
 import { registerWeatherEntrypoint } from "./entrypoints/weather";
@@ -7,6 +8,7 @@ import { registerMultiDataEntrypoint } from "./entrypoints/multi-data";
 import { registerMarketSentimentEntrypoint } from "./entrypoints/market-sentiment";
 import { registerAnalyticsEntrypoint } from "./entrypoints/analytics";
 import { registerHistoricalDataEntrypoint } from "./entrypoints/historical-data";
+import * as schemas from "./lib/schemas";
 
 // Create a wrapper app to intercept agent.json
 const wrapperApp = new Hono();
@@ -55,13 +57,36 @@ wrapperApp.get("/.well-known/agent.json", async (c) => {
   const response = await app.fetch(c.req.raw);
   const manifest = await response.json();
 
-  // Add Daydreams ecosystem metadata
+  // Schema mappings for each entrypoint
+  const schemaMap: Record<string, { input: any; output?: any }> = {
+    "crypto-price": { input: schemas.CryptoPriceInputSchema },
+    weather: { input: schemas.WeatherInputSchema },
+    "historical-data": { input: schemas.HistoricalDataInputSchema },
+    news: { input: schemas.NewsInputSchema },
+    "market-sentiment": { input: schemas.MarketSentimentInputSchema },
+    "multi-data": { input: schemas.MultiDataInputSchema },
+    analytics: { input: schemas.AnalyticsInputSchema },
+  };
+
+  // Add input schemas to entrypoints
+  const enhancedEntrypoints = { ...manifest.entrypoints };
+  for (const [key, value] of Object.entries(enhancedEntrypoints)) {
+    if (schemaMap[key]) {
+      enhancedEntrypoints[key] = {
+        ...value,
+        inputSchema: zodToJsonSchema(schemaMap[key].input, { $refStrategy: "none" }),
+      };
+    }
+  }
+
+  // Add Daydreams ecosystem metadata and enhanced schemas
   return c.json({
     ...manifest,
     author: "DegenLlama.net",
     organization: "Daydreams",
     provider: "Daydreams",
     framework: "x402 / agent-kit",
+    entrypoints: enhancedEntrypoints,
   });
 });
 
