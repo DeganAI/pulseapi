@@ -1,4 +1,5 @@
 import { createAgentApp } from "@lucid-dreams/agent-kit";
+import { Hono } from "hono";
 import { registerCryptoPriceEntrypoint } from "./entrypoints/crypto-price";
 import { registerNewsEntrypoint } from "./entrypoints/news";
 import { registerWeatherEntrypoint } from "./entrypoints/weather";
@@ -6,6 +7,9 @@ import { registerMultiDataEntrypoint } from "./entrypoints/multi-data";
 import { registerMarketSentimentEntrypoint } from "./entrypoints/market-sentiment";
 import { registerAnalyticsEntrypoint } from "./entrypoints/analytics";
 import { registerHistoricalDataEntrypoint } from "./entrypoints/historical-data";
+
+// Create a wrapper app to intercept agent.json
+const wrapperApp = new Hono();
 
 const { app, addEntrypoint, config } = createAgentApp(
   {
@@ -45,30 +49,26 @@ registerMarketSentimentEntrypoint(addEntrypoint);
 registerAnalyticsEntrypoint(addEntrypoint);
 registerHistoricalDataEntrypoint(addEntrypoint);
 
-// Middleware to add Daydreams ecosystem metadata to agent.json
-app.use("/.well-known/agent.json", async (c, next) => {
-  await next();
+// Mount agent app on wrapper
+wrapperApp.route("/", app);
 
-  if (c.res.headers.get("content-type")?.includes("application/json")) {
-    const body = await c.res.json();
+// Override agent.json endpoint with metadata
+wrapperApp.get("/.well-known/agent.json", async (c) => {
+  const manifest = config.toManifest();
 
-    // Add Daydreams ecosystem metadata
-    const enhancedManifest = {
-      ...body,
-      author: "DegenLlama.net",
-      organization: "Daydreams",
-      provider: "Daydreams",
-      framework: "x402 / agent-kit",
-    };
-
-    return c.json(enhancedManifest);
-  }
+  return c.json({
+    ...manifest,
+    author: "DegenLlama.net",
+    organization: "Daydreams",
+    provider: "Daydreams",
+    framework: "x402 / agent-kit",
+  });
 });
 
-// Export for Railway/Bun
+// Export wrapper for Railway/Bun
 export default {
   port: process.env.PORT || 3000,
-  fetch: app.fetch,
+  fetch: wrapperApp.fetch,
 };
 
 const PORT = process.env.PORT || 3000;
