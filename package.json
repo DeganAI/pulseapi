@@ -1,0 +1,21 @@
+{
+  "name": "pulseapi",
+  "version": "1.0.0",
+  "description": "Multi-source data aggregation API for x402 ecosystem",
+  "type": "module",
+  "scripts": {
+    "dev": "bun run src/index.ts",
+    "build": "bun build src/index.ts --outdir=dist --target=bun",
+    "start": "bun run dist/index.js",
+    "test": "bun test",
+    "type-check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@lucid-dreams/agent-kit": "latest",
+    "zod": "^3.22.4"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "typescript": "^5.3.3"
+  }
+}

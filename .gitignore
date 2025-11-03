@@ -1,0 +1,27 @@
+node_modules/
+dist/
+.env
+.DS_Store
+*.log
+.vscode/
+.idea/
+
+# Test files (temporary)
+test-real-data.ts
+test-entrypoint-output.ts
+
+# Bun
+bun.lockb
+
+# Internal business documents (DO NOT COMMIT)
+MONEY_STRATEGY.md
+PRICING_STRATEGY.md
+LAUNCH_CHECKLIST.md
+PROJECT_SUMMARY.md
+START_HERE.md
+V2_UPGRADE.md
+DATA_QUALITY_REPORT.md
+DEPLOYMENT_CHECKLIST.md
+swarm-config.json
+docs/agent-prompt.md
+.claude/
