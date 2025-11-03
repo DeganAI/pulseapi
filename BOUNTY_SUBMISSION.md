@@ -331,6 +331,8 @@ All 7 endpoints visible at: https://www.x402scan.com/resources
 **Payment Address:** 0x01D11F7e1a46AbFC6092d7be484895D2d505095c
 **Facilitator:** https://facilitator.daydreams.systems
 
+**Solana Wallet (Bounty Payment):** Hnf7qnwdHYtSqj7PjjLjokUq4qaHR4qtHLedW7XDaNDG
+
 ---
 
 ## Additional Materials
