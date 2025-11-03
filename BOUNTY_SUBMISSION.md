@@ -6,7 +6,8 @@
 
 **Repository:** https://github.com/DeganAI/pulseapi
 **Live Service:** https://pulseapi-production-00cc.up.railway.app
-**x402scan:** https://www.x402scan.com/resources
+**x402scan Registry:** https://www.x402scan.com/resources
+**x402scan Service Page:** https://www.x402scan.com/server/134b6de2-0d0f-48e7-ae4e-c5e343b88e65/
 
 ---
 
@@ -48,6 +49,8 @@
 
 ### Built for the Ecosystem
 - **x402scan registered:** All 7 endpoints discoverable
+- **Daydreams ecosystem:** Properly attributed with organization metadata
+- **Full schema exposure:** All endpoints expose complete input/output schemas
 - **Agent-first design:** Natural language friendly
 - **MCP compatible:** Ready for Claude Desktop integration
 - **Open source:** MIT licensed
@@ -89,8 +92,11 @@
 - **99%+** uptime
 
 ### Production Readiness
-- ✅ Deployed and live
+- ✅ Deployed and live on Railway
 - ✅ All endpoints tested with real data
+- ✅ Registered and verified on x402scan
+- ✅ Complete input schemas for discoverability
+- ✅ Organization metadata (Daydreams ecosystem)
 - ✅ Error handling and fallbacks
 - ✅ Rate limiting ready
 - ✅ Monitoring configured
@@ -123,6 +129,44 @@
 | Support | Responsive | None |
 | Features | AI sentiment, combos | Basic only |
 | Data Quality | Multi-source | Single source |
+
+---
+
+## x402scan Verification
+
+**Live on x402scan:** https://www.x402scan.com/server/134b6de2-0d0f-48e7-ae4e-c5e343b88e65/
+
+This page demonstrates PulseAPI is fully functional with:
+- ✅ All 7 endpoints registered and discoverable
+- ✅ Organization: "Daydreams" (properly attributed to ecosystem)
+- ✅ Author: "DegenLlama.net"
+- ✅ Complete input schemas for each endpoint (no generic placeholders)
+- ✅ Proper pricing display ($0.01 - $0.06 per query)
+- ✅ Framework: "x402 / agent-kit"
+
+**Verify the manifest directly:**
+```bash
+curl -s https://pulseapi-production-00cc.up.railway.app/.well-known/agent.json | jq '{
+  author,
+  organization,
+  provider,
+  framework,
+  endpoints: (.entrypoints | keys),
+  allHaveSchemas: ([.entrypoints[].inputSchema] | all)
+}'
+```
+
+**Expected output:**
+```json
+{
+  "author": "DegenLlama.net",
+  "organization": "Daydreams",
+  "provider": "Daydreams",
+  "framework": "x402 / agent-kit",
+  "endpoints": ["analytics", "crypto-price", "historical-data", "market-sentiment", "multi-data", "news", "weather"],
+  "allHaveSchemas": true
+}
+```
 
 ---
 
