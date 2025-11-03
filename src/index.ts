@@ -51,8 +51,11 @@ registerHistoricalDataEntrypoint(addEntrypoint);
 
 // Override agent.json endpoint with metadata BEFORE mounting agent app
 wrapperApp.get("/.well-known/agent.json", async (c) => {
-  const manifest = config.toManifest();
+  // Call the original agent app handler to get the manifest
+  const response = await app.fetch(c.req.raw);
+  const manifest = await response.json();
 
+  // Add Daydreams ecosystem metadata
   return c.json({
     ...manifest,
     author: "DegenLlama.net",
