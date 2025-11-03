@@ -45,6 +45,24 @@ registerMarketSentimentEntrypoint(addEntrypoint);
 registerAnalyticsEntrypoint(addEntrypoint);
 registerHistoricalDataEntrypoint(addEntrypoint);
 
+// Override agent.json to add ecosystem metadata
+const originalAgentHandler = app.routes.find(
+  (r: any) => r.path === "/.well-known/agent.json"
+);
+
+app.get("/.well-known/agent.json", async (c) => {
+  // Get the config manifest
+  const manifest = config.toManifest();
+
+  return c.json({
+    ...manifest,
+    author: "DegenLlama.net",
+    organization: "Daydreams",
+    provider: "Daydreams",
+    framework: "x402 / agent-kit",
+  });
+});
+
 // Export for Railway/Bun
 export default {
   port: process.env.PORT || 3000,
