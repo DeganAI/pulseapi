@@ -13,7 +13,11 @@ const { app, addEntrypoint, config } = createAgentApp(
     version: "1.0.0",
     description:
       "Real-time cryptocurrency prices, news, weather, and multi-source data aggregation. The ultimate x402 data hub for AI agents. Pay per query with instant USDC micropayments.",
-  },
+    author: "DegenLlama.net",
+    organization: "Daydreams",
+    provider: "Daydreams",
+    framework: "x402 / agent-kit",
+  } as any,
   {
     config: {
       payments: {
