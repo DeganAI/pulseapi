@@ -25,3 +25,7 @@ DEPLOYMENT_CHECKLIST.md
 swarm-config.json
 docs/agent-prompt.md
 .claude/
+
+# MCP server (not ready for public)
+mcp-server-pulseapi/
+MCP_SETUP_GUIDE.md
