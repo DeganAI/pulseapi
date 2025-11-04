@@ -8,6 +8,7 @@ import { registerMultiDataEntrypoint } from "./entrypoints/multi-data";
 import { registerMarketSentimentEntrypoint } from "./entrypoints/market-sentiment";
 import { registerAnalyticsEntrypoint } from "./entrypoints/analytics";
 import { registerHistoricalDataEntrypoint } from "./entrypoints/historical-data";
+import { registerTrustVerifyEntrypoint } from "./entrypoints/trust-verify";
 import * as schemas from "./lib/schemas";
 
 // Create a wrapper app to intercept agent.json
@@ -50,6 +51,7 @@ registerMultiDataEntrypoint(addEntrypoint);
 registerMarketSentimentEntrypoint(addEntrypoint);
 registerAnalyticsEntrypoint(addEntrypoint);
 registerHistoricalDataEntrypoint(addEntrypoint);
+registerTrustVerifyEntrypoint(addEntrypoint);
 
 // Override agent.json endpoint with metadata BEFORE mounting agent app
 wrapperApp.get("/.well-known/agent.json", async (c) => {
@@ -66,6 +68,7 @@ wrapperApp.get("/.well-known/agent.json", async (c) => {
     "market-sentiment": { input: schemas.MarketSentimentInputSchema },
     "multi-data": { input: schemas.MultiDataInputSchema },
     analytics: { input: schemas.AnalyticsInputSchema },
+    "trust-verify": { input: schemas.TrustVerifyInputSchema },
   };
 
   // Add input schemas to entrypoints
@@ -123,5 +126,6 @@ console.log(`
 ║  • /entrypoints/market-sentiment/invoke                      ║
 ║  • /entrypoints/analytics/invoke (🎯 OBSERVABILITY!)        ║
 ║  • /entrypoints/historical-data/invoke (📊 TIME SERIES!)    ║
+║  • /entrypoints/trust-verify/invoke (🛡️ TRUST LAYER!)      ║
 ╚═══════════════════════════════════════════════════════════════╝
 `);

@@ -129,3 +129,24 @@ export const AnalyticsInputSchema = z.object({
     .optional()
     .describe("Metrics to include"),
 });
+
+// Trust Verification Schemas
+export const TrustVerifyInputSchema = z.object({
+  endpoint_url: z
+    .string()
+    .url()
+    .describe("URL of the x402 endpoint to verify (e.g., 'https://example.com/api/crypto-price')"),
+  test_query: z
+    .record(z.any())
+    .describe("Test query payload to send to the endpoint"),
+  endpoint_type: z
+    .enum(["crypto-price", "news", "weather", "generic"])
+    .default("generic")
+    .optional()
+    .describe("Type of endpoint for comparison benchmarking"),
+  comparison_sources: z
+    .array(z.string())
+    .default(["pulseapi"])
+    .optional()
+    .describe("Data sources to compare against for accuracy verification"),
+});
