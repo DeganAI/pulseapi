@@ -47,9 +47,6 @@ registerAnalyticsEntrypoint(addEntrypoint);
 registerHistoricalDataEntrypoint(addEntrypoint);
 registerTrustVerifyEntrypoint(addEntrypoint);
 
-// Export the agent-kit app directly (recommended pattern from agent-kit README)
-export default app;
-
 const PORT = process.env.PORT || 3000;
 const BASE_URL = process.env.BASE_URL || `http://localhost:${PORT}`;
 
@@ -77,3 +74,12 @@ console.log(`
 ║  • /entrypoints/trust-verify/invoke (🛡️ TRUST LAYER!)      ║
 ╚═══════════════════════════════════════════════════════════════╝
 `);
+
+// Serve the agent app with Bun (required for bun run mode)
+Bun.serve({
+  fetch: app.fetch,
+  port: PORT,
+});
+
+// Also export for adapters/testing
+export default app;
