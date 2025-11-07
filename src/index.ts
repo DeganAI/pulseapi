@@ -1,4 +1,5 @@
 import { createAgentApp } from "@lucid-dreams/agent-kit";
+import { Hono } from "hono";
 import { registerCryptoPriceEntrypoint } from "./entrypoints/crypto-price";
 import { registerNewsEntrypoint } from "./entrypoints/news";
 import { registerWeatherEntrypoint } from "./entrypoints/weather";
@@ -47,10 +48,16 @@ registerAnalyticsEntrypoint(addEntrypoint);
 registerHistoricalDataEntrypoint(addEntrypoint);
 registerTrustVerifyEntrypoint(addEntrypoint);
 
-// Export agent app directly for Railway/Bun
+// Create Hono wrapper app and mount agent app
+const wrapperApp = new Hono();
+
+// Mount the x402 agent app (provides /.well-known/agent.json and all agent-kit routes)
+wrapperApp.route("/", app);
+
+// Export wrapper app for Railway/Bun
 export default {
   port: process.env.PORT || 3000,
-  fetch: app.fetch,
+  fetch: wrapperApp.fetch,
 };
 
 const PORT = process.env.PORT || 3000;
