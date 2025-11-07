@@ -1,5 +1,5 @@
 import { z } from "zod";
-import type { EntrypointDef } from "@lucid-dreams/agent-kit/types";
+import type { EntrypointDef } from "@lucid-agents/agent-kit/types";
 import { getCryptoNews } from "../lib/data-sources";
 
 const NewsInputSchema = z.object({

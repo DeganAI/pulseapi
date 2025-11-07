@@ -1,4 +1,4 @@
-import { createAgentApp } from "@lucid-dreams/agent-kit";
+import { createAgentApp } from "@lucid-agents/agent-kit";
 import { Hono } from "hono";
 import { registerCryptoPriceEntrypoint } from "./entrypoints/crypto-price";
 import { registerNewsEntrypoint } from "./entrypoints/news";

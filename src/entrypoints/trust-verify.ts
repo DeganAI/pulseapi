@@ -1,5 +1,5 @@
 import { z } from "zod";
-import type { EntrypointDef } from "@lucid-dreams/agent-kit/types";
+import type { EntrypointDef } from "@lucid-agents/agent-kit/types";
 import { TrustVerifyInputSchema } from "../lib/schemas";
 import { verifyEndpoint } from "../lib/trust-verifier";
 
