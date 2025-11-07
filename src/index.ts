@@ -1,5 +1,4 @@
 import { createAgentApp } from "@lucid-dreams/agent-kit";
-import { Hono } from "hono";
 import { zodToJsonSchema } from "zod-to-json-schema";
 import { registerCryptoPriceEntrypoint } from "./entrypoints/crypto-price";
 import { registerNewsEntrypoint } from "./entrypoints/news";
@@ -10,9 +9,6 @@ import { registerAnalyticsEntrypoint } from "./entrypoints/analytics";
 import { registerHistoricalDataEntrypoint } from "./entrypoints/historical-data";
 import { registerTrustVerifyEntrypoint } from "./entrypoints/trust-verify";
 import * as schemas from "./lib/schemas";
-
-// Create a wrapper app to intercept agent.json
-const wrapperApp = new Hono();
 
 const { app, addEntrypoint, config } = createAgentApp(
   {
@@ -53,10 +49,14 @@ registerAnalyticsEntrypoint(addEntrypoint);
 registerHistoricalDataEntrypoint(addEntrypoint);
 registerTrustVerifyEntrypoint(addEntrypoint);
 
-// Override agent.json endpoint with metadata BEFORE mounting agent app
-wrapperApp.get("/.well-known/agent.json", async (c) => {
-  // Call the original agent app handler to get the manifest
-  const response = await app.fetch(c.req.raw);
+// Store reference to original agent.json handler
+const originalHandler = app.fetch.bind(app);
+
+// Override agent.json endpoint directly on the agent app
+app.get("/.well-known/agent.json", async (c) => {
+  // Create a mock request to get the original manifest
+  const mockReq = new Request(`http://localhost/.well-known/agent.json`);
+  const response = await originalHandler(mockReq);
   const manifest = await response.json();
 
   // Schema mappings for each entrypoint
@@ -93,13 +93,10 @@ wrapperApp.get("/.well-known/agent.json", async (c) => {
   });
 });
 
-// Mount agent app on wrapper (this will add all other routes)
-wrapperApp.route("/", app);
-
-// Export wrapper for Railway/Bun
+// Export agent app directly for Railway/Bun
 export default {
   port: process.env.PORT || 3000,
-  fetch: wrapperApp.fetch,
+  fetch: app.fetch,
 };
 
 const PORT = process.env.PORT || 3000;
