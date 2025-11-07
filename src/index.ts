@@ -75,11 +75,8 @@ console.log(`
 ╚═══════════════════════════════════════════════════════════════╝
 `);
 
-// Serve the agent app with Bun (required for bun run mode)
+// Serve the agent app with Bun (explicit serve to control port and avoid double-serving)
 Bun.serve({
   fetch: app.fetch,
   port: PORT,
 });
-
-// Also export for adapters/testing
-export default app;
