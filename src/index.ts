@@ -1,5 +1,4 @@
 import { createAgentApp } from "@lucid-dreams/agent-kit";
-import { zodToJsonSchema } from "zod-to-json-schema";
 import { registerCryptoPriceEntrypoint } from "./entrypoints/crypto-price";
 import { registerNewsEntrypoint } from "./entrypoints/news";
 import { registerWeatherEntrypoint } from "./entrypoints/weather";
@@ -8,7 +7,6 @@ import { registerMarketSentimentEntrypoint } from "./entrypoints/market-sentimen
 import { registerAnalyticsEntrypoint } from "./entrypoints/analytics";
 import { registerHistoricalDataEntrypoint } from "./entrypoints/historical-data";
 import { registerTrustVerifyEntrypoint } from "./entrypoints/trust-verify";
-import * as schemas from "./lib/schemas";
 
 const { app, addEntrypoint, config } = createAgentApp(
   {
@@ -48,50 +46,6 @@ registerMarketSentimentEntrypoint(addEntrypoint);
 registerAnalyticsEntrypoint(addEntrypoint);
 registerHistoricalDataEntrypoint(addEntrypoint);
 registerTrustVerifyEntrypoint(addEntrypoint);
-
-// Store reference to original agent.json handler
-const originalHandler = app.fetch.bind(app);
-
-// Override agent.json endpoint directly on the agent app
-app.get("/.well-known/agent.json", async (c) => {
-  // Create a mock request to get the original manifest
-  const mockReq = new Request(`http://localhost/.well-known/agent.json`);
-  const response = await originalHandler(mockReq);
-  const manifest = await response.json();
-
-  // Schema mappings for each entrypoint
-  const schemaMap: Record<string, { input: any; output?: any }> = {
-    "crypto-price": { input: schemas.CryptoPriceInputSchema },
-    weather: { input: schemas.WeatherInputSchema },
-    "historical-data": { input: schemas.HistoricalDataInputSchema },
-    news: { input: schemas.NewsInputSchema },
-    "market-sentiment": { input: schemas.MarketSentimentInputSchema },
-    "multi-data": { input: schemas.MultiDataInputSchema },
-    analytics: { input: schemas.AnalyticsInputSchema },
-    "trust-verify": { input: schemas.TrustVerifyInputSchema },
-  };
-
-  // Add input schemas to entrypoints
-  const enhancedEntrypoints = { ...manifest.entrypoints };
-  for (const [key, value] of Object.entries(enhancedEntrypoints)) {
-    if (schemaMap[key]) {
-      enhancedEntrypoints[key] = {
-        ...value,
-        inputSchema: zodToJsonSchema(schemaMap[key].input, { $refStrategy: "none" }),
-      };
-    }
-  }
-
-  // Add Daydreams ecosystem metadata and enhanced schemas
-  return c.json({
-    ...manifest,
-    author: "DegenLlama.net",
-    organization: "Daydreams",
-    provider: "Daydreams",
-    framework: "x402 / agent-kit",
-    entrypoints: enhancedEntrypoints,
-  });
-});
 
 // Export agent app directly for Railway/Bun
 export default {
