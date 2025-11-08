@@ -1,5 +1,4 @@
 import { createAgentApp } from "@lucid-agents/agent-kit";
-import { Hono } from "hono";
 import { registerCryptoPriceEntrypoint } from "./entrypoints/crypto-price";
 import { registerNewsEntrypoint } from "./entrypoints/news";
 import { registerWeatherEntrypoint } from "./entrypoints/weather";
@@ -51,12 +50,6 @@ registerTrustVerifyEntrypoint(addEntrypoint);
 const PORT = parseInt(process.env.PORT || "8080");
 const BASE_URL = process.env.BASE_URL || `http://localhost:${PORT}`;
 
-// Create Hono wrapper to mount the agent app (Railway-compatible pattern)
-const server = new Hono();
-
-// Mount the x402 agent app (provides all agent-kit routes)
-server.route("/", app);
-
 console.log(`
 ╔═══════════════════════════════════════════════════════════════╗
 ║                    🔥 PULSEAPI - THE GOAT 🔥                  ║
@@ -82,8 +75,8 @@ console.log(`
 ╚═══════════════════════════════════════════════════════════════╝
 `);
 
-// Export for Bun (Railway-compatible pattern)
+// Export agent-kit app directly for Bun/Railway
 export default {
   port: PORT,
-  fetch: server.fetch,
+  fetch: app.fetch,
 };
